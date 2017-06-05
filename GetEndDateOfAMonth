@@ -5,7 +5,7 @@
 // ex>> getEndDateOfMonth(year: 2020, month: 2) = 30
 ///////////////////////////////////////////////////////////////////////////////
        
-func getEndDateOfMonth(year: Int, month: Int) -> Int {
+func getEndDateOfAMonth(year: Int, month: Int) -> Int {
     
     // make calender, get today / 캘린더 생성, 오늘 날짜를 구함
     let calender = Calendar.current
