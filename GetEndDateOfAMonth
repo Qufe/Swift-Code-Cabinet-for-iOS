@@ -1,0 +1,69 @@
+    
+///////////////////////////////////////////////////////////////////////////////
+// Return end date of month whether 28, 30, 31
+// 변수로 입력 받은 년도와 달의 마직막 날짜가 28일, 30일, 31일 인지 리턴한다.
+// ex>> getEndDateOfMonth(year: 2020, month: 2) = 30
+///////////////////////////////////////////////////////////////////////////////
+       
+func getEndDateOfMonth(year: Int, month: Int) -> Int {
+    
+    // make calender, get today / 캘린더 생성, 오늘 날짜를 구함
+    let calender = Calendar.current
+    
+    // set date formatter / 데이터 포매터 생성
+    let dateFormatter = DateFormatter()
+    
+    // set date format / 데이터 포맷 설정
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    // make date component / 데이터 컴포넌트 생성
+    var dateComponent = DateComponents()
+    
+    // make the month of dateComponent to 1
+    // set dat date of dateComponent to -1
+    // and calculate, than you will get result date
+    // 말일을 구하고자 하는 달의 다음 달 1일에서 하루를 빼기 위해 데이터 컴포넌트 월: +1 일: -1
+    // 그리고 계산을 통해 계산 결과의 특정 시점을 얻는다
+    
+    // set dateComponent 0 / 데이트컴포넌트 리셋
+    dateComponent.month = 0
+    dateComponent.day = 0
+    
+    // make specific date as first of next month of input month
+    // After then, if we subtract one day from the specific date, we will get end date of input month
+    // 입력 받은 변수로 구하고자 하는 달의 다음 달 1일을 생성
+    // 거기에서 하루를 빼면 변수로 입력한 년도와 달의 마지막 날을 얻는다
+    
+    // make specific date with input date. This year - this month - first
+    // specificDate 에 올해, 이번달, 1일을 담는다
+    if let specificDate = dateFormatter.date(from: "\(year)-\(month)-\(1)") {
+        // make the month of specific date as next month by adding 1 / 그리고 specificDate에서 달을 다음달로 넘긴다
+        dateComponent.month = 1
+        if let nextMonthOfSpecificDate = calender.date(byAdding: dateComponent, to: specificDate) {
+            // And then, back a day = last date of last month(input month) / 그리고 하루 앞으로 돌아간다 = 지난달 말일로 돌아간다
+            dateComponent.month = 0
+            dateComponent.day = -1
+            if let targetDate = calender.date(byAdding: dateComponent, to: nextMonthOfSpecificDate) {
+                // make return variable / 리턴 할 변수를 생성
+                var returnDate: Int = 1
+                // set return vaulable as result DATE of calculated date / 리턴 할 변수에 계산이 끝난 날짜의 날을 담는다
+                returnDate = calender.component(.day, from: targetDate)
+                return returnDate
+            } else {
+                return 0
+            }
+        } else {
+            return 0
+        }
+    } else {
+        return 0
+    }
+}
+
+// call if end date of February is not 28 within 1990 ~ 2100
+//
+// for year in 1990...2100 {
+//     if getEndDateOfMonth(year: year, month: 2) != 28 {
+//     print("\(year)")
+//     }
+// }
