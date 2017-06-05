@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Return end date of a month whether 28, 30, 31
 // 변수로 입력 받은 년도와 달의 마직막 날짜가 28일, 30일, 31일 인지 리턴한다.
-// ex>> getEndDateOfMonth(year: 2020, month: 2) = 30
+// ex>> getEndDateOfAMonth(year: 2020, month: 2) = 30
 ///////////////////////////////////////////////////////////////////////////////
        
 func getEndDateOfAMonth(year: Int, month: Int) -> Int {
